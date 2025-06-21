@@ -24,7 +24,7 @@ body {
 
 .container {
     position: relative;
-    width: 23.438rem;
+    width: clamp(23.438rem, 100vw, 69rem);
 
      &::before {
         content: "";
@@ -40,6 +40,18 @@ body {
     &.dimmed::before { opacity: 1; }
 }
 
+.lightbox {
+    display: none;
+    width: 40%;
+    position: fixed;
+    inset: 0;
+    gap: $sp-4;
+    justify-content: center;
+    margin: auto;
+    padding: 4rem;
+    z-index: 999;
+}
+
 img {
     display: block;
     height: auto;
@@ -47,6 +59,11 @@ img {
 }
 
 li { list-style-type: none; }
+
+svg {
+    display: block;
+}
+
 /*-- BUTTONS--*/
 button {
     border: none;
@@ -61,6 +78,14 @@ button {
         border-radius: 0.6rem;
         font-weight: 700;
         width: 100%;
+
+        &:hover {
+            background-color: var(--paleOrange);
+        }
+    }
+
+    &:hover {
+        cursor: pointer;
     }
 }
 
@@ -73,17 +98,34 @@ button {
     .header-left, .header-right {
         align-items: center;
         flex-direction: row;
-        gap: $sp-4;
     }
 
-    .logo { width: 8.5rem; }
+    .header-left {
+        gap: clamp(1rem, 4vw, 3.5rem);
+    }
+
+    .header-right {
+        gap: clamp(1rem, 3vw, 2.5rem);
+    }
+
+    .logo  {
+        margin-bottom: 0.25rem;
+    }
     
-    .avatar-image { width: clamp(1.75rem, 3vw, 3rem); }
+    .avatar-image { 
+        width: clamp(1.5rem, 4vw, 3rem); 
+
+        &:hover {
+            border-radius: 100%;
+            border: 0.1rem solid var(--orange);
+            cursor: pointer;
+        }
+    }
     
     #cart-btn {
         position: relative;
         fill: var(--darkGrayishBlue);
-        padding: 0.375rem;
+        padding: 0.5rem;
 
         #cart-badge {
             display: none;
@@ -176,10 +218,6 @@ nav {
     &.prev { left: 0rem; }
 }
 
-.lightbox {
-    display: none;
-}
-
 /*-- PRICING--*/
 .product-prices {
     align-items: center;
@@ -216,13 +254,13 @@ nav {
     .label {
         color: var(--darkGrayishBlue);
         text-transform: uppercase;
-        font-size: $fs-xs;
+        font-size: clamp(0.75rem, 3vw, 0.813rem);
         font-weight: 700;
         letter-spacing: 0.12rem;
     }
 
     .product-details {
-        gap: clamp(1rem, 3vw, 2rem);
+        gap: clamp($sp-4, 3vw, 2rem);
 
         div {
             gap: clamp(0.75rem, 3vw, 1rem);
@@ -230,14 +268,14 @@ nav {
 
         h1 {
             margin-inline-end: 2rem;
-            font-size: clamp(1.75rem, 3vw, 2.625rem);
-            line-height: clamp(2rem, 3vw, 3rem);
+            font-size: clamp(1.75rem, 3vw, 2.75rem);
+            line-height: clamp(2rem, 4vw, 3rem);
         }
     }
 
     .product-description {
         color: var(--darkGrayishBlue);
-        font-size: 0.938rem;
+        font-size: clamp(0.938rem, 3vw, 1rem);
         line-height: 1.6rem;
     }
 }
@@ -302,12 +340,12 @@ form {
 
     div:first-child {
         flex-direction: row;
-        gap: 1rem;
+        gap: $sp-4;
         justify-content: space-between;
         align-items: center;
     }
 
-    .cart-item, .empty-message {
+    .cart-item {
         display: none;
         color: var(--darkGrayishBlue);
         line-height: 1.5rem;  
@@ -331,14 +369,15 @@ form {
     .empty-message {
         display: none;
         justify-self: center;
+        color: var(--darkGrayishBlue);
         font-weight: 700;
     
         &.active {
-            display: flex;
+            display: block;
+            margin-block: 5rem;
         }
     }
 }
-
 
 .basket.active {
     display: block;
@@ -355,7 +394,6 @@ form {
         "divider divider"
         "main main";
         position: relative; 
-        width: 68rem; 
     }
 
     .header { 
@@ -364,21 +402,25 @@ form {
 
         .navigation-button { display: none; }
 
-        .header-left { gap: 3rem; }
-
-
         .nav-links {
             flex-direction: row;
             height: 100%;
 
             li {
                 align-content: center;
-                border-bottom: 0.25rem solid var(--orange);
+
             }
             
             a {
                 font-weight: 400;
                 font-size: 0.938rem;
+                
+
+                &:hover {
+                    color: var(--orange);
+                    border-bottom: 0.25rem solid var(--orange);
+                    padding-bottom: 2.65rem;
+                }
             }
         }
 
@@ -402,19 +444,16 @@ form {
         grid-template-columns: repeat(2, 1fr);
         align-items: center;
         gap: 5rem;
-        margin: 1rem;
+        margin: 1.75rem;
     }
 
     .divider {
         grid-area: divider;
         display: block;
         border: none;
-        height: 0.063rem;
+        height: 0.02rem;
         background-color: var(--grayishBlue);
     }
-
-    .product-container {
-        padding: 1.5rem;
         .carousel {
             gap: $sp-6;
 
@@ -422,21 +461,32 @@ form {
                 display: flex;
                 flex-direction: row;
                 gap: $sp-5;
+                opacity: 1;
+
+                img {
+                    border-radius: 1rem;
+                    
+                    &:hover {
+                        opacity: 0.3;
+                    }
+                }
             }
 
             .carousel-slides {
-                border-radius: 0.75rem;
+                border-radius: 1rem;
+                
+                img {
+                    border-radius: 1rem;
+                    height: 100%;
+                }
             }
-
-            img {
-                border-radius: 0.75rem;
-                height: 100%;
-            }
-
             .carousel-button {
                 display: none;
             }
         }
+
+    .lightbox.active, .lightbox .carousel-button {
+        display: flex;
     }
 
     .product-content {
@@ -454,12 +504,12 @@ form {
         flex-direction: row;
 
         .counter {
-            width: 55%;
+            width: 60%;
         }
     }
 
     .basket {
-        right: -3rem;
-        top: 5rem;
+        right: -6.5%;
+        top: 10%;
     }
 }

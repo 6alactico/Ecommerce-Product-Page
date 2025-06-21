@@ -39,9 +39,9 @@
         <img class="avatar-image" src="images/image-avatar.png" alt="Avatar image">
       </div>
     </header>
+    
     <hr class="divider">
 
-    
     <!--BASKET-->
   <section class="basket flex-container" aria-label="Basket filled">
     <h2>Cart</h2>
@@ -63,8 +63,7 @@
   </section>
 
     <main>
-      <div class="product-container">
-        <section class="carousel flex-container" aria-label="Product gallery">
+        <section class="carousel product-carousel flex-container" aria-label="Product gallery">
           <ul class="carousel-slides flex-container">
             <li class="slide active"><img src="images/image-product-1.jpg" alt="Brown and white sneakers"></li>
             <li class="slide"><img src="images/image-product-2.jpg" alt="Brown and white sneakers"></li>
@@ -88,6 +87,35 @@
           </button>
         </section>
 
+      <!--LIGHTBOX-->
+      <div class="lightbox lightbox-carousel flex-container">
+         <button class="close-btn lightbox-btn" type="button" aria-label="Close lightbox">
+            <svg width="14" height="15" xmlns="http://www.w3.org/2000/svg"><path d="m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z" fill-rule="evenodd"/></svg>
+          </button>
+
+        <section class="carousel flex-container" aria-label="Product gallery">
+          <ul class="carousel-slides flex-container">
+            <li class="slide active"><img src="images/image-product-1.jpg" alt="Brown and white sneakers"></li>
+            <li class="slide"><img src="images/image-product-2.jpg" alt="Brown and white sneakers"></li>
+            <li class="slide"><img src="images/image-product-3.jpg" alt="Brown and white sneakers"></li>
+            <li class="slide"><img src="images/image-product-4.jpg" alt="Brown and white sneakers"></li>
+          </ul>
+
+          <!--CAROUSEL THUMBNAILS-->
+          <ul class="carousel-thumbnails flex-container">
+            <li><img src="images/image-product-1.jpg" alt="Brown and white sneakers"></li>
+            <li><img src="images/image-product-2.jpg" alt="Brown and white sneakers"></li>
+            <li><img src="images/image-product-3.jpg" alt="Brown and white sneakers"></li>
+            <li><img src="images/image-product-4.jpg" alt="Brown and white sneakers"></li>
+          </ul>
+
+          <button class="carousel-button prev flex-container" type="button" data-direction="-1" aria-label="Previous image">
+            <svg width="14" height="16" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path d="M11 1 3 9l8 8" stroke="#1D2026" stroke-width="4" fill="none" fill-rule="evenodd"/></svg>
+          </button>
+          <button class="carousel-button next flex-container" type="button" data-direction="1" aria-label="Next image">
+            <svg width="14" height="16" viewBox="-3 0 18 18" xmlns="http://www.w3.org/2000/svg"><path d="m2 1 8 8-8 8" stroke="#1D2026" stroke-width="4" fill="none" fill-rule="evenodd"/></svg>
+          </button>
+        </section>
       </div>
   
       <article class="product-content flex-container">

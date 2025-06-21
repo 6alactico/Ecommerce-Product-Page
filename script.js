@@ -4,10 +4,11 @@ const menuButtons = document.querySelectorAll('.navigation-button');
 const cart = document.querySelector('#cart-btn');
 const cartBadge = document.querySelector('#cart-badge');
 const activeSlide = document.querySelector('.slide.active');
-const slides = document.querySelectorAll('.slide');
-const track = document.querySelector('.carousel-slides');
 const carousel = document.querySelector('.carousel');
 const deleteButton = document.querySelector('#delete-btn');
+const productContainer = document.querySelector('.product-container');
+const lightbox = document.querySelector('.lightbox');
+const lightboxButton = document.querySelector('.lightbox-btn');
 
 const basket = document.querySelector('.basket');
 
@@ -23,10 +24,12 @@ const decrease = document.getElementById('decrease');
 const addToCartButton = document.querySelector('#add-to-cart');
 const discountPriceText = document.querySelector('#discount-price');
 const itemPrice = document.querySelector('#item-price');
+const carouselSlide = document.querySelector('.carousel-slides')
+
+const mediaQuery = window.matchMedia('(min-width: 48rem');
 
 let selectedQuantity = 0;
 let cartQuantity = 0;
-let currentIndex = 0;
 
 // Navigation menu
 const navMenu = () => {
@@ -36,6 +39,20 @@ const navMenu = () => {
 
 menuButtons.forEach(button => button.addEventListener('click', navMenu));
 
+if (mediaQuery.matches) {
+    carouselSlide.addEventListener('click', () => {
+        lightbox.classList.add('active');
+        container.classList.add('dimmed');
+    })
+
+    lightboxButton.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+        container.classList.remove('dimmed');
+    })
+
+    console.log("Clicked", carousel);
+}
+
 // Cart Popup
 cart.addEventListener('click', () => {
     basket.classList.toggle('active');
@@ -44,22 +61,46 @@ cart.addEventListener('click', () => {
 });
 
 // Carousel
-function updateSlide() {
-    slides.forEach(slide => slide.classList.remove('active'));
-    slides[currentIndex].classList.add('active');
-    track.style.transform = `translateX(-${currentIndex * 100}%)`;
-    console.log('Current slide', slides[currentIndex]);
-}
+function setupCarousel(carousel) {
+    let currentIndex = 0;
+    const slides = carousel.querySelectorAll('.carousel-slides .slide');
+    const track = carousel.querySelector('.carousel-slides');
+    const buttons = carousel.querySelectorAll('[data-direction]');
+    const thumbnails = carousel.querySelectorAll('.carousel-thumbnails img');
 
-document.querySelectorAll('[data-direction]').forEach(button => {
-    button.addEventListener('click', () => {
-        const direction = parseInt(button.dataset.direction, 10);
-        currentIndex = (currentIndex + direction + slides.length) % slides.length;
-        updateSlide();
-        console.log('button clicked', button.dataset.direction);
+    function updateSlide() {
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[currentIndex].classList.add('active');
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        console.log('Current slide', slides[currentIndex]);
+
+        thumbnails.forEach(thumb => thumb.classList.remove('active'));
+        if (thumbnails[currentIndex]) {
+            thumbnails[currentIndex].classList.add('active');
+        }
+    }
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const direction = parseInt(button.dataset.direction, 10);
+            currentIndex = (currentIndex + direction + slides.length) % slides.length;
+            updateSlide();
+            console.log('button clicked', button.dataset.direction);
+        });
     });
-});
 
+    thumbnails.forEach((thumb, index) => {
+        thumb.addEventListener('click', () => {
+            currentIndex = index;
+            updateSlide();
+        })
+    })
+
+
+    updateSlide();
+}
+setupCarousel(document.querySelector('.product-carousel'));
+setupCarousel(document.querySelector('.lightbox-carousel'));
 
 // Counter
 function updateQuantity(change) {
@@ -103,5 +144,3 @@ function handleCartUpdate(e) {
 
 deleteButton.addEventListener('click', handleCartUpdate);
 addToCartButton.addEventListener('click', handleCartUpdate);
-
-updateSlide();
