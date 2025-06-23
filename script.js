@@ -3,7 +3,6 @@ const nav = document.querySelector("nav");
 const menuButtons = document.querySelectorAll('.navigation-button');
 const cart = document.querySelector('#cart');
 const cartBadge = document.querySelector('.cart-badge');
-const activeSlide = document.querySelector('.slide.active');
 const carousel = document.querySelector('.carousel');
 const deleteButton = document.querySelector('#delete-btn');
 const productContainer = document.querySelector('.product-container');
@@ -55,13 +54,13 @@ cart.addEventListener('click', () => {
 });
 
 // Carousel
-function setupCarousel(carousel) {
+function setupCarousel() {
     let currentIndex = 0;
-    const slides = carousel.querySelectorAll('.carousel-slides .slide');
-    const track = carousel.querySelector('.carousel-slides');
-    const buttons = carousel.querySelectorAll('[data-direction]');
-    const thumbnails = carousel.querySelectorAll('.carousel-thumbnails .thumbnail');
-    const thumbnailImg = carousel.querySelectorAll('.carousel-thumbnails .thumbnail img')
+    const slides = document.querySelectorAll('.carousel-slides .slide');
+    const track = document.querySelector('.carousel-slides');
+    const buttons = document.querySelectorAll('[data-direction]');
+    const thumbnails = document.querySelectorAll('.carousel-thumbnails .thumbnail');
+    const thumbnailImg = document.querySelectorAll('.carousel-thumbnails .thumbnail img')
 
     function updateSlide() {
         slides.forEach(slide => slide.classList.remove('active'));
