@@ -1,31 +1,24 @@
-const container = document.querySelector(".container");
+const body = document.querySelector("body");
 const nav = document.querySelector("nav");
 const menuButtons = document.querySelectorAll('.navigation-button');
-const cart = document.querySelector('#cart-btn');
-const cartBadge = document.querySelector('#cart-badge');
+const cart = document.querySelector('.cart');
+const cartBadge = document.querySelector('.cart-badge');
 const activeSlide = document.querySelector('.slide.active');
 const carousel = document.querySelector('.carousel');
 const deleteButton = document.querySelector('#delete-btn');
 const productContainer = document.querySelector('.product-container');
 const lightbox = document.querySelector('.lightbox');
 const lightboxButton = document.querySelector('.lightbox-btn');
-
 const basket = document.querySelector('.basket');
-
 const emptyMessage = document.querySelector('.empty-message');
-const cartItem = document.querySelector('.cart-item');
-
-
+const product = document.querySelector('.product');
 const counterValue = document.querySelector('#counter-value');
 const totalPrice = document.getElementById('total-price');
 const quantity = document.querySelector('.quantity');
-const increase = document.getElementById('increase');
-const decrease = document.getElementById('decrease');
 const addToCartButton = document.querySelector('#add-to-cart');
 const discountPriceText = document.querySelector('#discount-price');
 const itemPrice = document.querySelector('#item-price');
 const carouselSlide = document.querySelector('.carousel-slides')
-
 const mediaQuery = window.matchMedia('(min-width: 48rem');
 
 let selectedQuantity = 0;
@@ -34,20 +27,21 @@ let cartQuantity = 0;
 // Navigation menu
 const navMenu = () => {
     nav.classList.toggle('active');
-    container.classList.toggle('dimmed');
+    body.classList.toggle('dimmed');
 }
 
 menuButtons.forEach(button => button.addEventListener('click', navMenu));
 
+// Overlay
 if (mediaQuery.matches) {
     carouselSlide.addEventListener('click', () => {
         lightbox.classList.add('active');
-        container.classList.add('dimmed');
+        body.classList.add('dimmed');
     })
 
     lightboxButton.addEventListener('click', () => {
         lightbox.classList.remove('active');
-        container.classList.remove('dimmed');
+        body.classList.remove('dimmed');
     })
 
     console.log("Clicked", carousel);
@@ -66,7 +60,8 @@ function setupCarousel(carousel) {
     const slides = carousel.querySelectorAll('.carousel-slides .slide');
     const track = carousel.querySelector('.carousel-slides');
     const buttons = carousel.querySelectorAll('[data-direction]');
-    const thumbnails = carousel.querySelectorAll('.carousel-thumbnails img');
+    const thumbnails = carousel.querySelectorAll('.carousel-thumbnails .thumbnail');
+    const thumbnailImg = carousel.querySelectorAll('.carousel-thumbnails .thumbnail img')
 
     function updateSlide() {
         slides.forEach(slide => slide.classList.remove('active'));
@@ -75,8 +70,11 @@ function setupCarousel(carousel) {
         console.log('Current slide', slides[currentIndex]);
 
         thumbnails.forEach(thumb => thumb.classList.remove('active'));
+        thumbnailImg.forEach(img => img.classList.remove('active'));
+
         if (thumbnails[currentIndex]) {
             thumbnails[currentIndex].classList.add('active');
+            thumbnailImg[currentIndex].classList.add('active');
         }
     }
 
@@ -96,11 +94,11 @@ function setupCarousel(carousel) {
         })
     })
 
-
     updateSlide();
 }
-setupCarousel(document.querySelector('.product-carousel'));
-setupCarousel(document.querySelector('.lightbox-carousel'));
+
+setupCarousel(document.querySelector('.main-carousel'));
+setupCarousel(document.querySelector('.lightbox'));
 
 // Counter
 function updateQuantity(change) {
@@ -108,8 +106,8 @@ function updateQuantity(change) {
     counterValue.textContent = selectedQuantity;
 }
 
-increase.addEventListener('click', () => updateQuantity(1));
-decrease.addEventListener('click', () => updateQuantity(-1));
+document.getElementById('increment').addEventListener('click', () => updateQuantity(1));
+document.getElementById('decrement').addEventListener('click', () => updateQuantity(-1));
 
 // Update cart display and prices
 function updateDisplay() {
@@ -117,12 +115,12 @@ function updateDisplay() {
 
     if (cartQuantity > 0) {
         emptyMessage.classList.remove('active');
-        cartItem.classList.add('active');
+        product.classList.add('active');
         cartBadge.classList.add('active');
         cartBadge.textContent = cartQuantity;
     } else {
         emptyMessage.classList.add('active');
-        cartItem.classList.remove('active');
+        product.classList.remove('active');
         cartBadge.classList.remove('active');
         cartBadge.textContent = '';
     }
@@ -131,13 +129,12 @@ function updateDisplay() {
     totalPrice.textContent = `$${(cartQuantity * discountedPrice).toFixed(2)}`;
 }
 
-
-// Add to cart and delete buttons
 function handleCartUpdate(e) {
     if (e.currentTarget === deleteButton) {
         cartQuantity = 0;
     } else if (e.currentTarget === addToCartButton) {
         cartQuantity = selectedQuantity;
+        console.log('Added to cart', cartQuantity);
     }
     updateDisplay();
 }
