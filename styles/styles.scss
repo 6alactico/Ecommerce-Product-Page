@@ -104,7 +104,7 @@ button {
         }
     }
     
-    .cart {
+    #cart {
         fill: var(--darkGrayishBlue);
         padding: $sp-2;
         position: relative;
@@ -305,7 +305,7 @@ nav {
     }
 }
 
-form { gap: $sp-4; }
+.purchase-controls { gap: $sp-4; }
 
 #add-to-cart {
     align-items: center;
@@ -323,7 +323,7 @@ form { gap: $sp-4; }
     height: 15.5rem;
     left: 50%;
     position: absolute;
-    top: clamp(2rem, 10vh, 5rem);
+    top: 5rem;
     transform: translateX(-50%);
     width: 22.5rem;
     z-index: 2;
@@ -481,13 +481,13 @@ form { gap: $sp-4; }
         margin-block-end: $sp-4;
     }
 
-    .form { flex-direction: row; }
+    .purchase-controls { flex-direction: row; }
 
     .basket {
         left: auto;
         right: 0;
         transform: none;
-        top: clamp(5rem, 5vh, 8rem); 
+        top: 6rem;
     }
 
     .navigation-button {

@@ -114,12 +114,12 @@ button.primary-btn:hover {
   border: 0.1rem solid var(--orange);
   cursor: pointer;
 }
-.header .cart {
+.header #cart {
   fill: var(--darkGrayishBlue);
   padding: 0.5rem;
   position: relative;
 }
-.header .cart .cart-badge {
+.header #cart .cart-badge {
   background-color: var(--orange);
   border-radius: 1.5rem;
   color: var(--white);
@@ -129,7 +129,7 @@ button.primary-btn:hover {
   right: 0;
   top: 0;
 }
-.header .cart .cart-badge.active {
+.header #cart .cart-badge.active {
   display: block;
 }
 
@@ -303,7 +303,7 @@ nav .nav-links a {
   padding: 1rem;
 }
 
-form {
+.purchase-controls {
   gap: 1rem;
 }
 
@@ -323,7 +323,7 @@ form {
   height: 15.5rem;
   left: 50%;
   position: absolute;
-  top: clamp(2rem, 10vh, 5rem);
+  top: 5rem;
   transform: translateX(-50%);
   width: 22.5rem;
   z-index: 2;
@@ -476,14 +476,14 @@ form {
     gap: 0.75rem;
     margin-block-end: 1rem;
   }
-  .form {
+  .purchase-controls {
     flex-direction: row;
   }
   .basket {
     left: auto;
     right: 0;
     transform: none;
-    top: clamp(5rem, 5vh, 8rem);
+    top: 6rem;
   }
   .navigation-button {
     display: none;
