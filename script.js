@@ -5,7 +5,6 @@ const cart = document.querySelector('#cart');
 const cartBadge = document.querySelector('.cart-badge');
 const carousel = document.querySelector('.carousel');
 const deleteButton = document.querySelector('#delete-btn');
-const productContainer = document.querySelector('.product-container');
 const lightbox = document.querySelector('.lightbox');
 const lightboxButton = document.querySelector('.lightbox-btn');
 const basket = document.querySelector('.basket');
