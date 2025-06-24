@@ -3,6 +3,8 @@ const nav = document.querySelector("nav");
 const menuButtons = document.querySelectorAll('.navigation-button');
 const cart = document.querySelector('.cart-icon');
 const cartBadge = document.querySelector('.cart-badge');
+const activeSlide = document.querySelector('.slide.active');
+const carousel = document.querySelector('.carousel');
 const deleteButton = document.querySelector('#delete-btn');
 const lightbox = document.querySelector('.lightbox');
 const lightboxButton = document.querySelector('.lightbox-btn');
@@ -15,11 +17,11 @@ const quantity = document.querySelector('.quantity');
 const addToCartButton = document.querySelector('#add-to-cart');
 const discountPriceText = document.querySelector('#discount-price');
 const itemPrice = document.querySelector('#item-price');
-const mainCarouselElement = document.querySelector('.main-carousel'); // Get the main carousel element
 const mediaQuery = window.matchMedia('(min-width: 48rem)');
 
 let selectedQuantity = 0;
 let cartQuantity = 0;
+let currentIndex = 0;
 
 // Navigation menu
 const navMenu = () => {
@@ -29,19 +31,43 @@ const navMenu = () => {
 
 menuButtons.forEach(button => button.addEventListener('click', navMenu));
 
-// Carousel setup function
-function setupCarousel(carouselElement, isLightbox = false) {
-    let currentIndex = 0;
-    const slides = carouselElement.querySelectorAll('.carousel-slides .slide');
-    const track = carouselElement.querySelector('.carousel-slides');
-    const buttons = carouselElement.querySelectorAll('[data-direction]');
-    const thumbnails = carouselElement.querySelectorAll('.carousel-thumbnails .thumbnail');
-    const thumbnailImg = carouselElement.querySelectorAll('.carousel-thumbnails .thumbnail img');
+// Overlay
+if (mediaQuery.matches) {
+    document.querySelector('.carousel-slides').addEventListener('click', () => {
+        lightbox.classList.add('active');
+        body.classList.add('dimmed');
+    });
+
+    lightboxButton.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+        body.classList.remove('dimmed');
+    });
+
+    console.log("Clicked", carousel);
+}
+
+// Cart Popup
+cart.addEventListener('click', () => {
+    basket.classList.toggle('active');
+    updateDisplay();
+    console.log('Cart toggled:', basket.classList.contains('active'));
+});
+
+let mainUpdate, lightboxUpdate;
+
+// Carousel
+function setupCarousel(carousel, name) {
+    const slides = carousel.querySelectorAll('.carousel-slides .slide');
+    const track = carousel.querySelector('.carousel-slides');
+    const buttons = carousel.querySelectorAll('[data-direction]');
+    const thumbnails = carousel.querySelectorAll('.carousel-thumbnails .thumbnail');
+    const thumbnailImg = carousel.querySelectorAll('.carousel-thumbnails .thumbnail img');
 
     function updateSlide() {
         slides.forEach(slide => slide.classList.remove('active'));
         slides[currentIndex].classList.add('active');
         track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        console.log('Current slide', slides[currentIndex]);
 
         thumbnails.forEach(thumb => thumb.classList.remove('active'));
         thumbnailImg.forEach(img => img.classList.remove('active'));
@@ -51,11 +77,7 @@ function setupCarousel(carouselElement, isLightbox = false) {
             thumbnailImg[currentIndex].classList.add('active');
         }
 
-        // If this is the main carousel, store its current index
-        // so the lightbox can access it when opened.
-        if (!isLightbox) {
-            mainCarouselElement.dataset.currentIndex = currentIndex;
-        }
+        console.log("slides", slides);
     }
 
     buttons.forEach(button => {
@@ -63,6 +85,11 @@ function setupCarousel(carouselElement, isLightbox = false) {
             const direction = parseInt(button.dataset.direction, 10);
             currentIndex = (currentIndex + direction + slides.length) % slides.length;
             updateSlide();
+
+            if (name === 'main') lightboxUpdate();
+            else if (name === 'lightbox') mainUpdate();
+
+            console.log('button clicked', button.dataset.direction);
         });
     });
 
@@ -70,44 +97,19 @@ function setupCarousel(carouselElement, isLightbox = false) {
         thumb.addEventListener('click', () => {
             currentIndex = index;
             updateSlide();
+
+             if (name === 'main') lightboxUpdate();
+            else if (name === 'lightbox') mainUpdate();
         });
     });
 
-    // Function to set the current index from an external source
-    carouselElement.setCurrentIndex = (newIndex) => {
-        currentIndex = newIndex;
-        updateSlide();
-    };
+    updateSlide();
 
-    updateSlide(); // Initial update
+    return updateSlide;
 }
 
-// Initialize both carousels
-setupCarousel(mainCarouselElement, false); // Main carousel
-setupCarousel(lightbox, true); // Lightbox carousel
-
-// Overlay and Lightbox
-if (mediaQuery.matches) {
-    mainCarouselElement.addEventListener('click', () => {
-        // When the main carousel image is clicked, open the lightbox
-        // and set its current index to match the main carousel's current index.
-        const currentMainIndex = parseInt(mainCarouselElement.dataset.currentIndex || '0');
-        lightbox.setCurrentIndex(currentMainIndex); // Sync lightbox with main carousel
-        lightbox.classList.add('active');
-        body.classList.add('dimmed');
-    });
-
-    lightboxButton.addEventListener('click', () => {
-        lightbox.classList.remove('active');
-        body.classList.remove('dimmed');
-    });
-}
-
-// Cart Popup
-cart.addEventListener('click', () => {
-    basket.classList.toggle('active');
-    updateDisplay();
-});
+mainUpdate = setupCarousel(document.querySelector('.main-carousel'), 'main');
+lightboxUpdate = setupCarousel(document.querySelector('.lightbox'), 'lightbox');
 
 // Counter
 function updateQuantity(change) {
@@ -143,6 +145,7 @@ function handleCartUpdate(e) {
         cartQuantity = 0;
     } else if (e.currentTarget === addToCartButton) {
         cartQuantity = selectedQuantity;
+        console.log('Added to cart', cartQuantity);
     }
     updateDisplay();
 }

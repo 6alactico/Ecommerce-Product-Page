@@ -141,13 +141,13 @@ nav {
 .nav-links {
     align-content: center;
     gap: $sp-6;
-}
-
-.nav-link  {
-    color: inherit; 
-    font-size: $fs-md;
-    font-weight: 700;
-    text-decoration: none;
+    
+    a {
+        color: inherit; 
+        font-size: $fs-md;
+        font-weight: 700;
+        text-decoration: none;
+    }
 }
 
 /*-- CAROUSEL--*/
@@ -410,17 +410,17 @@ nav {
         align-items: center;
         flex-direction: row;
         height: 100%;
-    }
 
-    .nav-link {
-        color: var(--darkGrayishBlue);
-        font-weight: 400;
-        font-size: 0.938rem;
+        a {
+            color: var(--darkGrayishBlue);
+            font-weight: 400;
+            font-size: 0.938rem;
 
-        &:hover {
-            border-bottom: 0.25rem solid var(--orange);
-            color: var(--orange);
-            padding-bottom: 2.65rem;
+            &:hover {
+                border-bottom: 0.25rem solid var(--orange);
+                color: var(--orange);
+                padding-bottom: 2.65rem;
+            }
         }
     }
 

@@ -159,8 +159,7 @@ nav.active {
   align-content: center;
   gap: 2rem;
 }
-
-.nav-link {
+.nav-links a {
   color: inherit;
   font-size: 1.125rem;
   font-weight: 700;
@@ -414,12 +413,12 @@ nav.active {
     flex-direction: row;
     height: 100%;
   }
-  .nav-link {
+  .nav-links a {
     color: var(--darkGrayishBlue);
     font-weight: 400;
     font-size: 0.938rem;
   }
-  .nav-link:hover {
+  .nav-links a:hover {
     border-bottom: 0.25rem solid var(--orange);
     color: var(--orange);
     padding-bottom: 2.65rem;
