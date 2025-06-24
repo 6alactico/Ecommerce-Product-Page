@@ -24,20 +24,13 @@
     z-index: 1;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-}
-
 body {
     color: var(--veryDarkBlue);
     display: flex;
     justify-content: center;
     font-family: "Kumbh Sans", sans-serif;
     font-size: $fs-base;
-    height: 100vh;
+    min-height: 100vh;
 
     &::before { @include color; }
     &.dimmed::before { opacity: 1; }
@@ -53,6 +46,8 @@ img {
     height: auto;
     width: 100%;
 }
+
+li { list-style-type: none; }
 
 button, .thumbnail, .nav-links, .avatar-image, .carousel-slides { cursor: pointer; }
 
@@ -87,42 +82,41 @@ button {
         align-items: center;
         flex-direction: row;
     }
+}
+.logo  { margin-bottom: 0.25rem; }
 
-    .header-left { gap: clamp(1rem, 4vw, 3.5rem); }
+.header-left { gap: clamp(1rem, 4vw, 3.5rem); }
 
-    .header-right { gap: clamp(1rem, 3vw, 2.5rem); }
+.header-right { gap: clamp(1rem, 3vw, 2.5rem); }
 
-    .logo  { margin-bottom: 0.25rem; }
-    
-    .avatar-image { 
-        width: clamp(1.5rem, 4vw, 3rem); 
+.avatar-image { 
+    width: clamp(1.5rem, 4vw, 3rem); 
 
-        &:hover {
-            border-radius: 50%;
-            border: 0.1rem solid var(--orange);
-            cursor: pointer;
-        }
+    &:hover {
+        border-radius: 50%;
+        border: 0.1rem solid var(--orange);
+        cursor: pointer;
     }
-    
-    #cart {
-        fill: var(--darkGrayishBlue);
-        padding: $sp-2;
-        position: relative;
+} 
 
-        .cart-badge {
-            background-color: var(--orange);
-            border-radius: 1.5rem;
-            color: var(--white);
-            font-size: 0.688rem;
-            padding: $sp-0 0.4rem;
-            position: absolute;
-            right: 0;
-            top: 0;
-    
-            &.active {
-                display: block;
-            }
-        }
+.cart-icon {
+    fill: var(--darkGrayishBlue);
+    padding: $sp-2;
+    position: relative;
+}
+
+.cart-badge {
+    background-color: var(--orange);
+    border-radius: 1.5rem;
+    color: var(--white);
+    font-size: 0.688rem;
+    padding: $sp-0 0.4rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &.active {
+        display: block;
     }
 }
 
@@ -142,18 +136,18 @@ nav {
     z-index: 2;
 
     &.active { visibility: visible; }
+}
 
-    .nav-links {
-        align-content: center;
-        gap: $sp-6;
-        
-        a {
-            color: inherit; 
-            font-size: $fs-md;
-            font-weight: 700;
-            text-decoration: none;
-        }
-    }
+.nav-links {
+    align-content: center;
+    gap: $sp-6;
+}
+
+.nav-link  {
+    color: inherit; 
+    font-size: $fs-md;
+    font-weight: 700;
+    text-decoration: none;
 }
 
 /*-- CAROUSEL--*/
@@ -186,14 +180,15 @@ nav {
     transition: transform 0.3s ease; 
     height: clamp(18.75rem, 50vw, 28rem);
 
-    .slide {
-        flex-shrink: 0;
-        width: 100%;
-            
-        img {
-            height: 100%;
-            object-fit: cover;
-        }
+}
+
+.slide {
+    flex-shrink: 0;
+    width: 100%;
+        
+    img {
+        height: 100%;
+        object-fit: cover;
     }
 }
 
@@ -265,26 +260,26 @@ nav {
         font-weight: 700;
         letter-spacing: 0.12rem;
     }
+}
 
-    .product-details {
-        gap: clamp($sp-4, 3vw, 2rem);
+.product-details {
+    gap: clamp($sp-4, 3vw, 2rem);
 
-        div {
-            gap: clamp(0.75rem, 3vw, 1rem);
-        }
-
-        h2 {
-            margin-inline-end: 2rem;
-            font-size: clamp(1.75rem, 3vw, 2.75rem);
-            line-height: clamp(2rem, 3vw, 3rem);
-        }
+    div {
+        gap: clamp(0.75rem, 3vw, 1rem);
     }
 
-    .product-description {
-        color: var(--darkGrayishBlue);
-        font-size: clamp(0.938rem, 3vw, 1rem);
-        line-height: 1.6rem;
+    h2 {
+        margin-inline-end: 2rem;
+        font-size: clamp(1.75rem, 3vw, 2.75rem);
+        line-height: clamp(2rem, 3vw, 3rem);
     }
+}
+
+.product-description {
+    color: var(--darkGrayishBlue);
+    font-size: clamp(0.938rem, 3vw, 1rem);
+    line-height: 1.6rem;
 }
 
 /*-- COUNTER--*/
@@ -348,34 +343,34 @@ nav {
         justify-content: space-between;
         align-items: center;
     }
+}
 
-    .product {
-        color: var(--darkGrayishBlue);
-        gap: $sp-5;
-        line-height: $sp-5;  
-        padding: $sp-4 $sp-5 $sp-6;
+.product {
+    color: var(--darkGrayishBlue);
+    gap: $sp-5;
+    line-height: $sp-5;  
+    padding: $sp-4 $sp-5 $sp-6;
 
-        strong { color: black; }
+    strong { color: black; }
 
-        img {
-            border-radius: 0.25rem;
-            width: 3rem;
-        }
-
-        &.active {
-            display: flex;
-        }
+    img {
+        border-radius: 0.25rem;
+        width: 3rem;
     }
 
-    .empty-message {
-        color: var(--darkGrayishBlue);
-        font-weight: 700;
-        justify-self: center;
-    
-        &.active {
-            display: block;
-            margin-block: 5rem;
-        }
+    &.active {
+        display: flex;
+    }
+}
+
+.empty-message {
+    color: var(--darkGrayishBlue);
+    font-weight: 700;
+    justify-self: center;
+
+    &.active {
+        display: block;
+        margin-block: 5rem;
     }
 }
 
@@ -408,23 +403,23 @@ nav {
         position: static;
         visibility: visible;
         z-index: 0;
+    }
 
-        .nav-links {
-            align-items: center;
-            flex-direction: row;
-            height: 100%;
-        
-            a {
-                color: var(--darkGrayishBlue);
-                font-weight: 400;
-                font-size: 0.938rem;
+    .nav-links {
+        align-items: center;
+        flex-direction: row;
+        height: 100%;
+    }
 
-                &:hover {
-                    border-bottom: 0.25rem solid var(--orange);
-                    color: var(--orange);
-                    padding-bottom: 2.65rem;
-                }
-            }
+    .nav-link {
+        color: var(--darkGrayishBlue);
+        font-weight: 400;
+        font-size: 0.938rem;
+
+        &:hover {
+            border-bottom: 0.25rem solid var(--orange);
+            color: var(--orange);
+            padding-bottom: 2.65rem;
         }
     }
 
@@ -461,12 +456,13 @@ nav {
             position: relative;
     
             &.active { border-color: var(--orange); }
-
+    
             &::before { @include color($color: var(--white)); }
     
             &:hover::before, &.active::before { opacity: 0.6; }
         }
     }
+
 
     .carousel-buttons { 
         display: none; 

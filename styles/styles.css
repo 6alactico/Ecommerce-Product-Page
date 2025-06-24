@@ -20,20 +20,13 @@
   --black: hsla(0, 0%, 0%, 0.75);
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-
 body {
   color: var(--veryDarkBlue);
   display: flex;
   justify-content: center;
   font-family: "Kumbh Sans", sans-serif;
   font-size: 1rem;
-  height: 100vh;
+  min-height: 100vh;
 }
 body::before {
   content: "";
@@ -58,6 +51,10 @@ img {
   display: block;
   height: auto;
   width: 100%;
+}
+
+li {
+  list-style-type: none;
 }
 
 button, .thumbnail, .nav-links, .avatar-image, .carousel-slides {
@@ -97,29 +94,35 @@ button.primary-btn:hover {
   align-items: center;
   flex-direction: row;
 }
-.header .header-left {
-  gap: clamp(1rem, 4vw, 3.5rem);
-}
-.header .header-right {
-  gap: clamp(1rem, 3vw, 2.5rem);
-}
-.header .logo {
+
+.logo {
   margin-bottom: 0.25rem;
 }
-.header .avatar-image {
+
+.header-left {
+  gap: clamp(1rem, 4vw, 3.5rem);
+}
+
+.header-right {
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.avatar-image {
   width: clamp(1.5rem, 4vw, 3rem);
 }
-.header .avatar-image:hover {
+.avatar-image:hover {
   border-radius: 50%;
   border: 0.1rem solid var(--orange);
   cursor: pointer;
 }
-.header #cart {
+
+.cart-icon {
   fill: var(--darkGrayishBlue);
   padding: 0.5rem;
   position: relative;
 }
-.header #cart .cart-badge {
+
+.cart-badge {
   background-color: var(--orange);
   border-radius: 1.5rem;
   color: var(--white);
@@ -129,7 +132,7 @@ button.primary-btn:hover {
   right: 0;
   top: 0;
 }
-.header #cart .cart-badge.active {
+.cart-badge.active {
   display: block;
 }
 
@@ -151,11 +154,13 @@ nav {
 nav.active {
   visibility: visible;
 }
-nav .nav-links {
+
+.nav-links {
   align-content: center;
   gap: 2rem;
 }
-nav .nav-links a {
+
+.nav-link {
   color: inherit;
   font-size: 1.125rem;
   font-weight: 700;
@@ -197,11 +202,12 @@ nav .nav-links a {
   transition: transform 0.3s ease;
   height: clamp(18.75rem, 50vw, 28rem);
 }
-.carousel-slides .slide {
+
+.slide {
   flex-shrink: 0;
   width: 100%;
 }
-.carousel-slides .slide img {
+.slide img {
   height: 100%;
   object-fit: cover;
 }
@@ -269,18 +275,20 @@ nav .nav-links a {
   font-weight: 700;
   letter-spacing: 0.12rem;
 }
-.product-content .product-details {
+
+.product-details {
   gap: clamp(1rem, 3vw, 2rem);
 }
-.product-content .product-details div {
+.product-details div {
   gap: clamp(0.75rem, 3vw, 1rem);
 }
-.product-content .product-details h2 {
+.product-details h2 {
   margin-inline-end: 2rem;
   font-size: clamp(1.75rem, 3vw, 2.75rem);
   line-height: clamp(2rem, 3vw, 3rem);
 }
-.product-content .product-description {
+
+.product-description {
   color: var(--darkGrayishBlue);
   font-size: clamp(0.938rem, 3vw, 1rem);
   line-height: 1.6rem;
@@ -346,28 +354,30 @@ nav .nav-links a {
   justify-content: space-between;
   align-items: center;
 }
-.basket .product {
+
+.product {
   color: var(--darkGrayishBlue);
   gap: 1.5rem;
   line-height: 1.5rem;
   padding: 1rem 1.5rem 2rem;
 }
-.basket .product strong {
+.product strong {
   color: black;
 }
-.basket .product img {
+.product img {
   border-radius: 0.25rem;
   width: 3rem;
 }
-.basket .product.active {
+.product.active {
   display: flex;
 }
-.basket .empty-message {
+
+.empty-message {
   color: var(--darkGrayishBlue);
   font-weight: 700;
   justify-self: center;
 }
-.basket .empty-message.active {
+.empty-message.active {
   display: block;
   margin-block: 5rem;
 }
@@ -396,17 +406,17 @@ nav .nav-links a {
     visibility: visible;
     z-index: 0;
   }
-  nav .nav-links {
+  .nav-links {
     align-items: center;
     flex-direction: row;
     height: 100%;
   }
-  nav .nav-links a {
+  .nav-link {
     color: var(--darkGrayishBlue);
     font-weight: 400;
     font-size: 0.938rem;
   }
-  nav .nav-links a:hover {
+  .nav-link:hover {
     border-bottom: 0.25rem solid var(--orange);
     color: var(--orange);
     padding-bottom: 2.65rem;

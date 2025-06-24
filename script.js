@@ -1,7 +1,7 @@
 const body = document.querySelector("body");
 const nav = document.querySelector("nav");
 const menuButtons = document.querySelectorAll('.navigation-button');
-const cart = document.querySelector('#cart');
+const cart = document.querySelector('.cart-icon');
 const cartBadge = document.querySelector('.cart-badge');
 const carousel = document.querySelector('.carousel');
 const deleteButton = document.querySelector('#delete-btn');
@@ -17,10 +17,11 @@ const addToCartButton = document.querySelector('#add-to-cart');
 const discountPriceText = document.querySelector('#discount-price');
 const itemPrice = document.querySelector('#item-price');
 const carouselSlide = document.querySelector('.carousel-slides')
-const mediaQuery = window.matchMedia('(min-width: 48rem');
+const mediaQuery = window.matchMedia('(min-width: 48rem)');
 
 let selectedQuantity = 0;
 let cartQuantity = 0;
+let currentIndex = 0;
 
 // Navigation menu
 const navMenu = () => {
@@ -30,7 +31,7 @@ const navMenu = () => {
 
 menuButtons.forEach(button => button.addEventListener('click', navMenu));
 
-// Overlay
+// Lightbox open
 if (mediaQuery.matches) {
     carouselSlide.addEventListener('click', () => {
         lightbox.classList.add('active');
@@ -53,13 +54,12 @@ cart.addEventListener('click', () => {
 });
 
 // Carousel
-function setupCarousel() {
-    let currentIndex = 0;
-    const slides = document.querySelectorAll('.carousel-slides .slide');
-    const track = document.querySelector('.carousel-slides');
-    const buttons = document.querySelectorAll('[data-direction]');
-    const thumbnails = document.querySelectorAll('.carousel-thumbnails .thumbnail');
-    const thumbnailImg = document.querySelectorAll('.carousel-thumbnails .thumbnail img')
+function setupCarousel(carousel) {
+    const slides = carousel.querySelectorAll('.carousel-slides .slide');
+    const track = carousel.querySelector('.carousel-slides');
+    const buttons = carousel.querySelectorAll('[data-direction]');
+    const thumbnails = carousel.querySelectorAll('.carousel-thumbnails .thumbnail');
+    const thumbnailImg = carousel.querySelectorAll('.carousel-thumbnails .thumbnail img')
 
     function updateSlide() {
         slides.forEach(slide => slide.classList.remove('active'));
@@ -96,7 +96,7 @@ function setupCarousel() {
 }
 
 setupCarousel(document.querySelector('.main-carousel'));
-setupCarousel(document.querySelector('.lightbox'));
+setupCarousel(document.querySelector('.lightbox-carousel'));
 
 // Counter
 function updateQuantity(change) {
