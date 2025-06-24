@@ -194,6 +194,7 @@ nav {
 
 /*-- LIGHTBOX--*/
 .lightbox {
+    display: none;
     &.active {
         align-items: flex-end;
         display: flex;
@@ -462,7 +463,6 @@ nav {
             &:hover::before, &.active::before { opacity: 0.6; }
         }
     }
-
 
     .carousel-buttons { 
         display: none; 

@@ -213,6 +213,9 @@ nav.active {
 }
 
 /*-- LIGHTBOX--*/
+.lightbox {
+  display: none;
+}
 .lightbox.active {
   align-items: flex-end;
   display: flex;
