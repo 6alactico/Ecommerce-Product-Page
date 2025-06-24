@@ -3,7 +3,6 @@ const nav = document.querySelector("nav");
 const menuButtons = document.querySelectorAll('.navigation-button');
 const cart = document.querySelector('.cart-icon');
 const cartBadge = document.querySelector('.cart-badge');
-const activeSlide = document.querySelector('.slide.active');
 const carousel = document.querySelector('.carousel');
 const deleteButton = document.querySelector('#delete-btn');
 const lightbox = document.querySelector('.lightbox');
